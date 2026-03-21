@@ -77,13 +77,6 @@ const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
-            {/* Back Button - Show only on non-home pages */}
-            {isNotHomePage && (
-              <Button size="sm" variant="ghost" onClick={handleBack} className="rounded-lg px-3 py-2 text-sm">
-                <ArrowLeft className="mr-1 h-4 w-4" /> Back
-              </Button>
-            )}
-            
             <Link to="/" className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Home</Link>
             <Link to="/education" className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Education</Link>
             <Link to="/grocery" className="rounded-lg px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Grocery</Link>
@@ -119,14 +112,6 @@ const Navbar = () => {
 
           {/* Mobile/Tablet Navigation */}
           <div className="flex lg:hidden items-center gap-2">
-            {/* Back Button for mobile/tablet */}
-            {isNotHomePage && (
-              <Button size="sm" variant="ghost" onClick={handleBack} className="rounded-lg p-2 sm:px-3 sm:py-2">
-                <ArrowLeft className="h-4 w-4" />
-                <span className="hidden sm:inline ml-1">Back</span>
-              </Button>
-            )}
-            
             {/* Mobile menu button */}
             <button className="flex h-10 w-10 items-center justify-center rounded-lg hover:bg-gray-100 transition-colors" onClick={() => setMobileOpen(!mobileOpen)}>
               {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
@@ -140,13 +125,6 @@ const Navbar = () => {
         <div className="bg-white border-t border-gray-200 lg:hidden">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
             <div className="flex flex-col gap-2">
-              {/* Back Button - Show only on non-home pages */}
-              {isNotHomePage && (
-                <Button size="sm" variant="ghost" onClick={() => { handleBack(); setMobileOpen(false); }} className="justify-start rounded-lg w-full">
-                  <ArrowLeft className="mr-2 h-4 w-4" /> Back
-                </Button>
-              )}
-              
               <Link to="/" onClick={() => setMobileOpen(false)} className="rounded-lg px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Home</Link>
               <Link to="/education" onClick={() => setMobileOpen(false)} className="rounded-lg px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Education</Link>
               <Link to="/grocery" onClick={() => setMobileOpen(false)} className="rounded-lg px-4 py-3 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors">Grocery</Link>
