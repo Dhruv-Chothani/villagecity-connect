@@ -115,7 +115,7 @@ const HeroWithFeatures: React.FC = () => {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="relative w-full h-[500px] sm:h-[550px] md:h-[600px] lg:h-[700px] overflow-hidden">
+      <section className="relative w-full h-[600px] sm:h-[650px] md:h-[700px] lg:h-[800px] overflow-hidden">
         {/* Background Images with Carousel */}
         <div className="absolute inset-0">
           {carouselImages.map((image, index) => (
@@ -184,7 +184,7 @@ const HeroWithFeatures: React.FC = () => {
       {/* Overlapping Feature Cards */}
       <section className="relative -mt-6 sm:-mt-8 lg:-mt-10 xl:-mt-16 z-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
             {features.map((feature, index) => (
               <Card 
                 key={index}

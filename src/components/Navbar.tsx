@@ -70,8 +70,8 @@ const Navbar = () => {
               <img src={logo} alt="SVCDA Logo" className="h-8 w-8 sm:h-10 sm:w-10" />
             </div>
             <div className="hidden sm:block">
-              <p className="font-bold text-sm sm:text-base leading-tight text-gray-900">SVCDA</p>
-              <p className="text-xs text-gray-600">Development Agency</p>
+              <p className="font-bold text-base sm:text-lg lg:text-xl leading-tight text-gray-900">SVCDA</p>
+              <p className="text-sm sm:text-base text-gray-600">Development Agency</p>
             </div>
           </Link>
 

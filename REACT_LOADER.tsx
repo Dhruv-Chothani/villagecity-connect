@@ -1,4 +1,3 @@
-import { Loader2 } from "lucide-react";
 import { useState, useEffect } from "react";
 
 const LoadingSpinner = ({ text = "Loading..." }: { text?: string }) => {

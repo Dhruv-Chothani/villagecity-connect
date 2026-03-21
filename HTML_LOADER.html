@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Working Loader Animation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .animate-spin { animation: spin 1s linear infinite; }
+        .animate-ping { animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite; }
+        .animate-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        .animate-bounce { animation: bounce 1s infinite; }
+    </style>
+</head>
+<body class="min-h-screen bg-gray-50 flex items-center justify-center">
+    <div class="text-center">
+        <!-- Main Loader -->
+        <div class="relative inline-block mb-8">
+            <!-- Outer spinning ring -->
+            <div class="h-16 w-16 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+            
+            <!-- Inner pulse dot -->
+            <div class="absolute inset-0 flex items-center justify-center">
+                <div class="h-4 w-4 bg-blue-600 rounded-full animate-pulse"></div>
+            </div>
+            
+            <!-- Orbiting dots -->
+            <div class="absolute -inset-4">
+                <div class="absolute top-0 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1 bg-blue-600 rounded-full animate-ping"></div>
+                <div class="absolute bottom-0 left-1/2 h-2 w-2 -translate-x-1/2 translate-y-1 bg-green-600 rounded-full animate-ping" style="animation-delay: 200ms"></div>
+                <div class="absolute left-0 top-1/2 h-2 w-2 -translate-y-1/2 -translate-x-1 bg-yellow-600 rounded-full animate-ping" style="animation-delay: 400ms"></div>
+                <div class="absolute right-0 top-1/2 h-2 w-2 -translate-y-1/2 translate-x-1 bg-red-600 rounded-full animate-ping" style="animation-delay: 600ms"></div>
+            </div>
+        </div>
+        
+        <!-- Loading Text -->
+        <div class="mb-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Loading...</h2>
+            <p class="text-gray-600">Connecting communities, building futures</p>
+        </div>
+        
+        <!-- Progress Bar -->
+        <div class="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mb-8 mx-auto">
+            <div class="animate-pulse h-full bg-gradient-to-r from-blue-600 to-green-600 rounded-full"></div>
+        </div>
+        
+        <!-- Floating Elements -->
+        <div class="relative">
+            <div class="animate-bounce absolute top-0 left-10 h-4 w-4 bg-blue-200 rounded-full"></div>
+            <div class="animate-bounce absolute top-0 right-10 h-3 w-3 bg-green-200 rounded-full" style="animation-delay: 200ms"></div>
+            <div class="animate-bounce absolute top-0 left-20 h-5 w-5 bg-yellow-200 rounded-full" style="animation-delay: 400ms"></div>
+        </div>
+    </div>
+</body>
+</html>
