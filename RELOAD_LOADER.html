@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reload Loader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes ping {
+            75%, 100% {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        
+        .animate-spin { animation: spin 1s linear infinite; }
+        .animate-ping { animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite; }
+        .animate-pulse { animation: pulse 2s ease-in-out infinite; }
+        .animate-bounce { animation: bounce 1s infinite; }
+        .animate-fadeIn { animation: fadeIn 0.5s ease-out; }
+        
+        .loader-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loader-container {
+            text-align: center;
+            animation: fadeIn 0.3s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Reload Loader Overlay -->
+    <div class="loader-overlay" id="reloadLoader">
+        <div class="loader-container">
+            <!-- Main Spinner -->
+            <div class="relative inline-block mb-8">
+                <div class="h-16 w-16 animate-spin rounded-full border-4 border-blue-200 border-t-blue-600"></div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="h-4 w-4 bg-blue-600 rounded-full animate-pulse"></div>
+                </div>
+                <div class="absolute -inset-4">
+                    <div class="absolute top-0 left-1/2 h-2 w-2 -translate-x-1/2 -translate-y-1 bg-blue-600 rounded-full animate-ping"></div>
+                    <div class="absolute bottom-0 left-1/2 h-2 w-2 -translate-x-1/2 translate-y-1 bg-green-600 rounded-full animate-ping" style="animation-delay: 200ms"></div>
+                    <div class="absolute left-0 top-1/2 h-2 w-2 -translate-y-1/2 -translate-x-1 bg-yellow-600 rounded-full animate-ping" style="animation-delay: 400ms"></div>
+                    <div class="absolute right-0 top-1/2 h-2 w-2 -translate-y-1/2 translate-x-1 bg-red-600 rounded-full animate-ping" style="animation-delay: 600ms"></div>
+                </div>
+            </div>
+            
+            <!-- Loading Text -->
+            <div class="mb-4">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Reloading...</h2>
+                <p class="text-gray-600">Please wait while we refresh your content</p>
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="w-64 h-2 bg-gray-200 rounded-full overflow-hidden mb-8 mx-auto">
+                <div class="animate-pulse h-full bg-gradient-to-r from-blue-600 to-green-600 rounded-full"></div>
+            </div>
+            
+            <!-- Reload Button (for testing) -->
+            <button onclick="hideLoader()" class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Hide Loader
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Show loader on page load
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('reloadLoader');
+            // Show for 2 seconds then hide
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 2000);
+        });
+        
+        // Manual hide function
+        function hideLoader() {
+            document.getElementById('reloadLoader').style.display = 'none';
+        }
+        
+        // Show on reload
+        window.addEventListener('beforeunload', function() {
+            document.getElementById('reloadLoader').style.display = 'flex';
+        });
+        
+        // Handle browser back/forward
+        window.addEventListener('pageshow', function(event) {
+            if (event.persisted) {
+                document.getElementById('reloadLoader').style.display = 'flex';
+                setTimeout(() => {
+                    document.getElementById('reloadLoader').style.display = 'none';
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>
