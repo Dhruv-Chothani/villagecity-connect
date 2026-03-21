@@ -9,6 +9,9 @@ import {
   Phone
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import ngoHero from '@/assets/ngo-hero.jpg';
+import ngoHero2 from '@/assets/ngo-hero2.png';
+import ngoHero3 from '@/assets/ngo-hero3.png';
 
 interface FeatureItem {
   icon: React.ReactNode;
@@ -34,7 +37,7 @@ const HeroWithFeatures: React.FC = () => {
   // Carousel images
   const carouselImages: CarouselImage[] = [
     {
-      src: "/src/assets/ngo-hero.jpg",
+      src: ngoHero,
       alt: "SVCDA Hero Banner",
       title: "One App for Village & City Development",
       subtitle: "Small Village & City Development Agency",
@@ -44,7 +47,7 @@ const HeroWithFeatures: React.FC = () => {
       phoneNumber: "+91 8978210705"
     },
     {
-      src: "/src/assets/ngo-hero2.png",
+      src: ngoHero2,
       alt: "Development Services Banner", 
       title: "Empowering Communities",
       subtitle: "Digital Transformation for All",
@@ -54,7 +57,7 @@ const HeroWithFeatures: React.FC = () => {
       phoneNumber: "+91 8978210705"
     },
     {
-      src: "/src/assets/ngo-hero3.png",
+      src: ngoHero3,
       alt: "Community Development Banner", 
       title: "Transforming Lives",
       subtitle: "Building Better Futures",
