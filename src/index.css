@@ -44,6 +44,13 @@
   }
   body {
     @apply bg-background text-foreground font-body antialiased;
+    /* Performance optimizations */
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Enable hardware acceleration */
+    transform: translateZ(0);
+    will-change: scroll-position;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
@@ -52,23 +59,41 @@
 
 @layer utilities {
   .glass {
-    @apply bg-card/80 backdrop-blur-xl border border-border/50;
+    @apply bg-card/90 backdrop-blur-md border border-border/50;
+    /* Optimize for better performance */
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    /* Enable hardware acceleration */
+    transform: translateZ(0);
+    will-change: transform;
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+    animation: fadeIn 0.3s ease-out forwards;
   }
 
   .animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
+    animation: fadeInUp 0.4s ease-out forwards;
   }
 
   .animate-slide-in-left {
-    animation: slideInLeft 0.6s ease-out forwards;
+    animation: slideInLeft 0.4s ease-out forwards;
   }
 
   .hover-lift {
     @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
+    /* Enable hardware acceleration for hover effects */
+    transform: translateZ(0);
+  }
+  
+  /* Performance optimizations */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  
+  /* Reduce paint on scroll */
+  .preserve-3d {
+    transform-style: preserve-3d;
   }
 }
 
@@ -91,3 +116,16 @@
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: hsl(var(--muted)); }
 ::-webkit-scrollbar-thumb { background: hsl(var(--primary)); border-radius: 4px; }
+
+/* Sector color variables */
+:root {
+  --sector-education: 182 70% 22%;
+  --sector-grocery: 142 76% 36%;
+  --sector-business: 217 91% 60%;
+  --sector-health: 0 84% 60%;
+  --sector-electronics: 210 40% 20%;
+  --sector-agriculture: 142 76% 36%;
+  --sector-services: 217 91% 60%;
+  --sector-training: 182 70% 22%;
+  --sector-employment: 25 95% 53%;
+}

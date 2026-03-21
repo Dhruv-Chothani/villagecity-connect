@@ -21,8 +21,8 @@ const MainNavbar = () => {
     <nav className="sticky top-0 z-50 border-b border-border bg-background shadow-sm">
       <div className="container flex h-16 items-center justify-between lg:h-20">
         <Link to="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 shadow-sm border border-primary/20 lg:h-12 lg:w-12">
-            <img src={logo} alt="SVCDA Logo" className="h-8 w-8 lg:h-10 lg:w-10" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md shadow-primary/20 border border-primary/20">
+            <img src={logo} alt="SVCDA Logo" className="h-10 w-10" />
           </div>
           <div>
             <p className="font-display text-sm font-bold leading-tight text-primary lg:text-base">Small Village & City</p>

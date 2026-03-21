@@ -12,19 +12,19 @@ import {
   fundingSchemes as defaultFunding,
   electronics as defaultElectronics,
   repairServices as defaultRepairServices,
+  jobs as defaultJobs,
+  services as defaultServices,
+  trainingPrograms as defaultTraining,
   farmingTips as defaultFarmingTips,
   cropPrices as defaultCropPrices,
   fertilizers as defaultFertilizers,
   machinery as defaultMachinery,
-  services as defaultServices,
-  trainingPrograms as defaultTraining,
-  jobs as defaultJobs,
-  awarenessPrograms as defaultAwareness,
   schools as defaultSchools,
   stationery as defaultStationery,
   courses as defaultCourses,
   ebooks as defaultEbooks,
-} from "@/lib/dummyData";
+  awarenessPrograms as defaultAwareness,
+} from "@/lib/realisticData";
 import {
   GroceryItem,
   GroceryStore,
@@ -65,7 +65,7 @@ export interface UserSubmission {
   createdAt: string;
 }
 
-// Helper to read localStorage with fallback
+// Performance-optimized localStorage helpers
 function loadLS<T>(key: string, fallback: T): T {
   try {
     const raw = localStorage.getItem(key);
@@ -76,7 +76,26 @@ function loadLS<T>(key: string, fallback: T): T {
 }
 
 function saveLS(key: string, data: unknown) {
-  localStorage.setItem(key, JSON.stringify(data));
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (error) {
+    console.warn(`Failed to save ${key} to localStorage:`, error);
+  }
+}
+
+// Optimized localStorage hook with debouncing
+function useLSState<T>(key: string, fallback: T): [T, (value: T | ((prev: T) => T)) => void] {
+  const [state, setState] = useState<T>(() => loadLS(key, fallback));
+  
+  const setOptimizedState = useCallback((value: T | ((prev: T) => T)) => {
+    setState(prevState => {
+      const newValue = typeof value === 'function' ? (value as (prev: T) => T)(prevState) : value;
+      saveLS(key, newValue);
+      return newValue;
+    });
+  }, [key]);
+  
+  return [state, setOptimizedState];
 }
 
 // ---- Context type ----
@@ -162,63 +181,51 @@ export const useData = () => {
   return ctx;
 };
 
-// Generic localStorage-synced state
-function useLSState<T>(key: string, fallback: T): [T, (v: T) => void] {
-  const [state, setState] = useState<T>(() => loadLS(key, fallback));
-
-  const setAndSave = useCallback((val: T) => {
-    setState(val);
-    saveLS(key, val);
-  }, [key]);
-
-  return [state, setAndSave];
-}
-
 export const DataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   // Grocery
-  const [groceryProducts, setGroceryProducts] = useLSState("vcda_grocery", defaultProducts);
-  const [groceryStores, setGroceryStores] = useLSState("vcda_grocery_stores", defaultStores);
-  const [subscriptionPlans, setSubscriptionPlans] = useLSState("vcda_subscriptions", defaultSubscriptions);
+  const [groceryProducts, setGroceryProducts] = useLSState<GroceryItem[]>("groceryProducts", defaultProducts);
+  const [groceryStores, setGroceryStores] = useLSState<GroceryStore[]>("groceryStores", defaultStores);
+  const [subscriptionPlans, setSubscriptionPlans] = useLSState<SubscriptionPlan[]>("subscriptionPlans", defaultSubscriptions);
 
   // Education
-  const [schools, setSchools] = useLSState("vcda_schools", defaultSchools);
-  const [stationery, setStationery] = useLSState("vcda_stationery", defaultStationery);
-  const [eduCourses, setEduCourses] = useLSState("vcda_courses", defaultCourses);
-  const [ebooks, setEbooks] = useLSState("vcda_ebooks", defaultEbooks);
+  const [schools, setSchools] = useLSState<School[]>("schools", defaultSchools);
+  const [stationery, setStationery] = useLSState<Stationery[]>("stationery", defaultStationery);
+  const [eduCourses, setEduCourses] = useLSState<EduCourse[]>("eduCourses", defaultCourses);
+  const [ebooks, setEbooks] = useLSState<Ebook[]>("ebooks", defaultEbooks);
 
   // Health
-  const [doctors, setDoctors] = useLSState("vcda_doctors", defaultDoctors);
-  const [hospitals, setHospitals] = useLSState("vcda_hospitals", defaultHospitals);
-  const [medicines, setMedicines] = useLSState("vcda_medicines", defaultMedicines);
-  const [healthTips, setHealthTips] = useLSState("vcda_healthtips", defaultHealthTips);
+  const [doctors, setDoctors] = useLSState<Doctor[]>("doctors", defaultDoctors);
+  const [hospitals, setHospitals] = useLSState<Hospital[]>("hospitals", defaultHospitals);
+  const [medicines, setMedicines] = useLSState<Medicine[]>("medicines", defaultMedicines);
+  const [healthTips, setHealthTips] = useLSState<HealthTip[]>("healthTips", defaultHealthTips);
 
   // Business
-  const [businesses, setBusinesses] = useLSState("vcda_businesses", defaultBusinesses);
-  const [businessEvents, setBusinessEvents] = useLSState("vcda_events", defaultEvents);
-  const [fundingSchemes, setFundingSchemes] = useLSState("vcda_funding", defaultFunding);
+  const [businesses, setBusinesses] = useLSState<Business[]>("businesses", defaultBusinesses);
+  const [businessEvents, setBusinessEvents] = useLSState<BusinessEvent[]>("businessEvents", defaultEvents);
+  const [fundingSchemes, setFundingSchemes] = useLSState<FundingScheme[]>("fundingSchemes", defaultFunding);
 
   // Electronics
-  const [electronics, setElectronics] = useLSState("vcda_electronics", defaultElectronics);
-  const [repairServices, setRepairServices] = useLSState("vcda_repair", defaultRepairServices);
+  const [electronics, setElectronics] = useLSState<ElectronicsItem[]>("electronics", defaultElectronics);
+  const [repairServices, setRepairServices] = useLSState<RepairService[]>("repairServices", defaultRepairServices);
 
   // Agriculture
-  const [farmingTips, setFarmingTips] = useLSState("vcda_farmingtips", defaultFarmingTips);
-  const [cropPrices, setCropPrices] = useLSState("vcda_cropprices", defaultCropPrices);
-  const [fertilizers, setFertilizers] = useLSState("vcda_fertilizers", defaultFertilizers);
-  const [machinery, setMachinery] = useLSState("vcda_machinery", defaultMachinery);
+  const [farmingTips, setFarmingTips] = useLSState<FarmingTip[]>("farmingTips", defaultFarmingTips);
+  const [cropPrices, setCropPrices] = useLSState<CropPrice[]>("cropPrices", defaultCropPrices);
+  const [fertilizers, setFertilizers] = useLSState<Fertilizer[]>("fertilizers", defaultFertilizers);
+  const [machinery, setMachinery] = useLSState<Machinery[]>("machinery", defaultMachinery);
 
   // Services
-  const [serviceWorkers, setServiceWorkers] = useLSState("vcda_services", defaultServices);
+  const [serviceWorkers, setServiceWorkers] = useLSState<ServiceWorker[]>("serviceWorkers", defaultServices);
 
   // Training
-  const [trainingPrograms, setTrainingPrograms] = useLSState("vcda_training", defaultTraining);
+  const [trainingPrograms, setTrainingPrograms] = useLSState<TrainingProgram[]>("trainingPrograms", defaultTraining);
 
   // Employment
-  const [jobs, setJobs] = useLSState("vcda_jobs", defaultJobs);
-  const [awarenessPrograms, setAwarenessPrograms] = useLSState("vcda_awareness", defaultAwareness);
+  const [jobs, setJobs] = useLSState<EmploymentOpportunity[]>("jobs", defaultJobs);
+  const [awarenessPrograms, setAwarenessPrograms] = useLSState<AwarenessProgram[]>("awarenessPrograms", defaultAwareness);
 
   // User Submissions
-  const [submissions, setSubmissions] = useLSState<UserSubmission[]>("vcda_submissions", []);
+  const [submissions, setSubmissions] = useLSState<UserSubmission[]>("submissions", []);
 
   const addSubmission = useCallback((sub: Omit<UserSubmission, "id" | "createdAt" | "status">) => {
     const newSub: UserSubmission = {

@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { LogOut, Menu, X, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import logo from "@/assets/logo.svg";
 
 const Navbar = () => {
@@ -11,11 +11,45 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
+  // Optimized scroll handler with throttling
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    let timeoutId: NodeJS.Timeout;
+    let lastScrollY = 0;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      
+      // Clear existing timeout
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+      
+      // Throttle scroll events
+      timeoutId = setTimeout(() => {
+        // Only update state if scroll position changed significantly
+        if (Math.abs(currentScrollY - lastScrollY) > 10) {
+          setScrolled(currentScrollY > 20);
+          lastScrollY = currentScrollY;
+        }
+      }, 16); // ~60fps
+    };
+
+    // Use passive event listener for better performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
   }, []);
+
+  // Memoize logout function to prevent unnecessary re-renders
+  const handleLogout = useCallback(() => {
+    logout();
+    navigate("/login", { replace: true });
+  }, [logout, navigate]);
 
   return (
     <nav className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "glass shadow-lg" : "bg-transparent border-b border-border/50"}`}>
@@ -45,7 +79,7 @@ const Navbar = () => {
             <>
               <Link to="/dashboard" className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">Dashboard</Link>
               <span className="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">{user.name}</span>
-              <Button size="sm" variant="ghost" onClick={() => { logout(); navigate("/login", { replace: true }); }} className="rounded-lg">
+              <Button size="sm" variant="ghost" onClick={handleLogout} className="rounded-lg">
                 <LogOut className="mr-1 h-4 w-4" /> Logout
               </Button>
             </>

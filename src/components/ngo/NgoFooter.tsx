@@ -9,8 +9,8 @@ const NgoFooter = () => {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <div className="mb-4 flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-foreground/10 p-1">
-                <img src={logo} alt="SVCDA" className="h-8 w-8" />
+              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md shadow-primary/20 border border-primary/20">
+                <img src={logo} alt="SVCDA" className="h-10 w-10" />
               </div>
               <div>
                 <p className="font-display text-sm font-bold">Small Village & City</p>
@@ -18,7 +18,7 @@ const NgoFooter = () => {
               </div>
             </div>
             <p className="mb-2 text-sm italic text-primary-foreground/80">
-              "One App for Village & City Development." 🚀
+              "One App for Village & City Development."
             </p>
             <p className="mb-4 text-sm leading-relaxed text-primary-foreground/70">
               Building digitally connected rural & urban communities through one platform.

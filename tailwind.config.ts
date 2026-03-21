@@ -62,6 +62,17 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        sector: {
+          education: "hsl(var(--sector-education))",
+          grocery: "hsl(var(--sector-grocery))",
+          business: "hsl(var(--sector-business))",
+          health: "hsl(var(--sector-health))",
+          electronics: "hsl(var(--sector-electronics))",
+          agriculture: "hsl(var(--sector-agriculture))",
+          services: "hsl(var(--sector-services))",
+          training: "hsl(var(--sector-training))",
+          employment: "hsl(var(--sector-employment))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

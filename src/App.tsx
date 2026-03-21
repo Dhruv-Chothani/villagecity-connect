@@ -8,6 +8,8 @@ import { DataProvider } from "@/contexts/DataContext";
 import PageWrapper from "@/components/PageWrapper";
 import PrivateRoute from "@/components/PrivateRoute";
 import AdminLayout from "@/components/AdminLayout";
+import { applyPerformanceStyles } from "@/components/PerformanceOptimizer";
+import { useEffect } from "react";
 import Index from "./pages/Index";
 import Login from "./pages/Login";
 import CustomerLogin from "./pages/CustomerLogin";
@@ -26,6 +28,7 @@ import AdminServices from "./pages/AdminServices";
 import AdminSettings from "./pages/AdminSettings";
 import AdminTraining from "./pages/AdminTraining";
 import AdminEmployment from "./pages/AdminEmployment";
+import AdminAnalytics from "./pages/AdminAnalytics";
 import Education from "./pages/Education";
 import Grocery from "./pages/Grocery";
 import Business from "./pages/Business";
@@ -39,66 +42,186 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <DataProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<PageWrapper><Index /></PageWrapper>} />
-            <Route path="/login" element={<PageWrapper><CustomerLogin /></PageWrapper>} />
-            <Route path="/admin-login" element={<PageWrapper><AdminLogin /></PageWrapper>} />
-            <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
-            
-            {/* Protected Dashboard Route */}
-            <Route path="/dashboard" element={
-              <PrivateRoute>
-                <PageWrapper><Dashboard /></PageWrapper>
-              </PrivateRoute>
-            } />
-            
-            {/* Protected Admin Routes */}
-            <Route path="/admin-dashboard" element={
-              <PrivateRoute requireAdmin>
-                <AdminLayout />
-              </PrivateRoute>
-            }>
-              <Route index element={<AdminDashboard />} />
-              <Route path="users" element={<AdminUsers />} />
-              <Route path="grocery" element={<AdminGrocery />} />
-              <Route path="education" element={<AdminEducation />} />
-              <Route path="business" element={<AdminBusiness />} />
-              <Route path="health" element={<AdminHealth />} />
-              <Route path="electronics" element={<AdminElectronics />} />
-              <Route path="agriculture" element={<AdminAgriculture />} />
-              <Route path="services" element={<AdminServices />} />
-              <Route path="training" element={<AdminTraining />} />
-              <Route path="employment" element={<AdminEmployment />} />
-              <Route path="analytics" element={<AdminDashboard />} />
-              <Route path="reports" element={<AdminDashboard />} />
-              <Route path="settings" element={<AdminSettings />} />
-            </Route>
-            
-            {/* Public Sector Pages */}
-            <Route path="/education" element={<PageWrapper><Education /></PageWrapper>} />
-            <Route path="/grocery" element={<PageWrapper><Grocery /></PageWrapper>} />
-            <Route path="/business" element={<PageWrapper><Business /></PageWrapper>} />
-            <Route path="/health" element={<PageWrapper><Health /></PageWrapper>} />
-            <Route path="/electronics" element={<PageWrapper><Electronics /></PageWrapper>} />
-            <Route path="/agriculture" element={<PageWrapper><Agriculture /></PageWrapper>} />
-            <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
-            <Route path="/training" element={<PageWrapper><Training /></PageWrapper>} />
-            <Route path="/employment" element={<PageWrapper><Employment /></PageWrapper>} />
-            <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-      </DataProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
+const PerformanceOptimizedApp = () => {
+  useEffect(() => {
+    // Apply performance optimizations when component mounts
+    const cleanup = applyPerformanceStyles();
+    
+    // Preload critical resources
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => {
+        // Preload critical resources during idle time
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = '/logo.svg';
+        document.head.appendChild(link);
+      });
+    }
+    
+    return cleanup;
+  }, []);
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <DataProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/login" element={<PageWrapper><CustomerLogin /></PageWrapper>} />
+                <Route path="/admin-login" element={<PageWrapper><AdminLogin /></PageWrapper>} />
+                <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
+                
+                {/* Protected Dashboard Route */}
+                <Route path="/dashboard" element={
+                  <PrivateRoute>
+                    <PageWrapper><Dashboard /></PageWrapper>
+                  </PrivateRoute>
+                } />
+                
+                {/* Protected Admin Routes */}
+                <Route path="/admin" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="analytics" element={<AdminAnalytics />} />
+                  <Route path="users" element={<AdminUsers />} />
+                  <Route path="grocery" element={<AdminGrocery />} />
+                  <Route path="education" element={<AdminEducation />} />
+                  <Route path="business" element={<AdminBusiness />} />
+                  <Route path="health" element={<AdminHealth />} />
+                  <Route path="electronics" element={<AdminElectronics />} />
+                  <Route path="agriculture" element={<AdminAgriculture />} />
+                  <Route path="services" element={<AdminServices />} />
+                  <Route path="training" element={<AdminTraining />} />
+                  <Route path="employment" element={<AdminEmployment />} />
+                  <Route path="settings" element={<AdminSettings />} />
+                </Route>
+                <Route path="/admin-dashboard" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="analytics" element={<AdminAnalytics />} />
+                  <Route path="users" element={<AdminUsers />} />
+                  <Route path="grocery" element={<AdminGrocery />} />
+                  <Route path="education" element={<AdminEducation />} />
+                  <Route path="business" element={<AdminBusiness />} />
+                  <Route path="health" element={<AdminHealth />} />
+                  <Route path="electronics" element={<AdminElectronics />} />
+                  <Route path="agriculture" element={<AdminAgriculture />} />
+                  <Route path="services" element={<AdminServices />} />
+                  <Route path="training" element={<AdminTraining />} />
+                  <Route path="employment" element={<AdminEmployment />} />
+                  <Route path="settings" element={<AdminSettings />} />
+                </Route>
+                <Route path="/admin/users" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminUsers />} />
+                </Route>
+                <Route path="/admin/grocery" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminGrocery />} />
+                </Route>
+                <Route path="/admin/education" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminEducation />} />
+                </Route>
+                <Route path="/admin/business" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminBusiness />} />
+                </Route>
+                <Route path="/admin/health" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminHealth />} />
+                </Route>
+                <Route path="/admin/electronics" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminElectronics />} />
+                </Route>
+                <Route path="/admin/agriculture" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminAgriculture />} />
+                </Route>
+                <Route path="/admin/services" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminServices />} />
+                </Route>
+                <Route path="/admin/training" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminTraining />} />
+                </Route>
+                <Route path="/admin/employment" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminEmployment />} />
+                </Route>
+                <Route path="/admin/settings" element={
+                  <PrivateRoute requireAdmin>
+                    <AdminLayout />
+                  </PrivateRoute>
+                }>
+                  <Route index element={<AdminSettings />} />
+                </Route>
+                
+                {/* User Routes */}
+                <Route path="/education" element={<PageWrapper><Education /></PageWrapper>} />
+                <Route path="/grocery" element={<PageWrapper><Grocery /></PageWrapper>} />
+                <Route path="/business" element={<PageWrapper><Business /></PageWrapper>} />
+                <Route path="/health" element={<PageWrapper><Health /></PageWrapper>} />
+                <Route path="/electronics" element={<PageWrapper><Electronics /></PageWrapper>} />
+                <Route path="/agriculture" element={<PageWrapper><Agriculture /></PageWrapper>} />
+                <Route path="/services" element={<PageWrapper><Services /></PageWrapper>} />
+                <Route path="/training" element={<PageWrapper><Training /></PageWrapper>} />
+                <Route path="/employment" element={<PageWrapper><Employment /></PageWrapper>} />
+                
+                {/* 404 */}
+                <Route path="*" element={<PageWrapper><NotFound /></PageWrapper>} />
+              </Routes>
+            </BrowserRouter>
+          </TooltipProvider>
+        </DataProvider>
+      </AuthProvider>
+    </QueryClientProvider>
+  );
+};
+
+const App = () => <PerformanceOptimizedApp />;
 
 export default App;

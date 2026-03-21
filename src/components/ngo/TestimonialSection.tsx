@@ -11,13 +11,13 @@ const testimonials = [
   {
     name: "Rajesh Kumar",
     location: "Patna, Bihar",
-    text: "SIDCO Bharat's Green Card helped my family access government healthcare and education benefits. The process was smooth and the team was very supportive.",
+    text: "SVCDA's Green Card helped my family access government healthcare and education benefits. The process was smooth and the team was very supportive.",
     rating: 5,
   },
   {
     name: "Sunita Devi",
     location: "Ranchi, Jharkhand",
-    text: "The free health camp in our village was a blessing. My mother received treatment she couldn't afford otherwise. Thank you SIDCO Bharat Foundation!",
+    text: "The free health camp in our village was a blessing. My mother received treatment she couldn't afford otherwise. Thank you SVCDA!",
     rating: 5,
   },
 ];

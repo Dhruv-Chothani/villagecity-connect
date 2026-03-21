@@ -35,7 +35,7 @@ const HeroSection = () => {
               </Button>
             </Link>
             <a href="tel:+918978210705">
-              <Button size="lg" variant="outline" className="rounded-lg border-primary-foreground/30 text-primary-foreground hover:bg-primary-foreground/10">
+              <Button size="lg" variant="outline" className="rounded-lg border-white/50 bg-transparent text-white hover:bg-white/10 hover:border-white/70 backdrop-blur-sm">
                 Call Now: +91 8978210705
               </Button>
             </a>

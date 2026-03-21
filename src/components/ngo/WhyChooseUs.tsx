@@ -18,7 +18,7 @@ const WhyChooseUs = () => {
           <div>
             <span className="mb-2 inline-block text-sm font-semibold uppercase tracking-wider text-accent">Why Choose SVCDA</span>
             <h2 className="mb-4 font-display text-2xl font-bold text-foreground sm:text-3xl lg:text-4xl">
-              One App for Village & City Development 🚀
+              One App for Village & City Development
             </h2>
             <p className="mb-6 leading-relaxed text-muted-foreground">
               Small Village & City Development Agency (SVCDA) is building a digitally

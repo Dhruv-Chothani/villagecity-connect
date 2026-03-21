@@ -104,10 +104,10 @@ const institutionsData = [
 ];
 
 const stationeryData = [
-  { id: 1, name: "Notebooks Set", price: "₹120", category: "Stationery", stock: 50, image: "📒" },
-  { id: 2, name: "Pen Set", price: "₹45", category: "Stationery", stock: 100, image: "🖊️" },
-  { id: 3, name: "School Bag", price: "₹350", category: "Accessories", stock: 25, image: "🎒" },
-  { id: 4, name: "Geometry Box", price: "₹85", category: "Stationery", stock: 75, image: "📐" }
+  { id: 1, name: "Notebooks Set", price: "₹120", category: "Stationery", stock: 50, image: "Notebook" },
+  { id: 2, name: "Pen Set", price: "₹45", category: "Stationery", stock: 100, image: "Pen" },
+  { id: 3, name: "School Bag", price: "₹350", category: "Accessories", stock: 25, image: "Bag" },
+  { id: 4, name: "Geometry Box", price: "₹85", category: "Stationery", stock: 75, image: "Tools" }
 ];
 
 const coursesData = [

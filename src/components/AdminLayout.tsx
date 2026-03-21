@@ -30,7 +30,6 @@ const AdminLayout = () => {
     { path: "/admin-dashboard/training", icon: GraduationCap, label: "Training", badge: null },
     { path: "/admin-dashboard/employment", icon: BriefcaseIcon, label: "Employment", badge: null },
     { path: "/admin-dashboard/analytics", icon: BarChart3, label: "Analytics", badge: null },
-    { path: "/admin-dashboard/reports", icon: FileText, label: "Reports", badge: null },
     { path: "/admin-dashboard/settings", icon: Settings, label: "Settings", badge: null },
   ];
 

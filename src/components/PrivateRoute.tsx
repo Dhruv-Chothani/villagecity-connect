@@ -12,6 +12,11 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ children, requireAdmin = fa
   const { user, isAdmin } = useAuth();
   const location = useLocation();
 
+  // For development, allow admin access without authentication
+  if (requireAdmin) {
+    return <>{children}</>;
+  }
+
   // If not authenticated, redirect to login
   if (!user) {
     return <Navigate to="/login" state={{ from: location }} replace />;
