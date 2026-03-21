@@ -1,5 +1,4 @@
 import TopStrip from "@/components/ngo/TopStrip";
-import MainNavbar from "@/components/ngo/MainNavbar";
 import HeroSection from "@/components/ngo/HeroSection";
 import FeatureCards from "@/components/ngo/FeatureCards";
 import WhyChooseUs from "@/components/ngo/WhyChooseUs";
@@ -13,7 +12,6 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <TopStrip />
-      <MainNavbar />
       <HeroSection />
       <FeatureCards />
       <WhyChooseUs />

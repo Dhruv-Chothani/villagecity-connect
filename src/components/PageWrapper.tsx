@@ -9,7 +9,9 @@ const PageWrapper: React.FC<PageWrapperProps> = ({ children }) => {
   return (
     <>
       <Navbar />
-      {children}
+      <main className="pt-16">
+        {children}
+      </main>
     </>
   );
 };

@@ -6,7 +6,7 @@ import {
   Menu, X, Search, Bell, ChevronDown, Home, Building, 
   ShoppingCart, Briefcase, Heart, Cpu, Leaf, Wrench, 
   GraduationCap, BriefcaseIcon, TrendingUp, FileText,
-  MoreHorizontal
+  MoreHorizontal, ArrowLeft
 } from "lucide-react";
 import logo from "@/assets/logo.svg";
 import { toast } from "sonner";
@@ -121,6 +121,17 @@ const AdminLayout = () => {
         
         {/* Sidebar */}
         <aside className={`fixed left-0 top-16 h-[calc(100vh-4rem)] bg-white border-r border-gray-200 transition-all duration-300 z-40 lg:translate-x-0 ${sidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full w-64 lg:w-64 lg:overflow-visible'}`}>
+          {/* Mobile Back Button */}
+          <div className="lg:hidden flex items-center justify-between p-4 border-b border-gray-200">
+            <h2 className="text-sm font-semibold text-gray-900">Navigation Menu</h2>
+            <button
+              onClick={() => setSidebarOpen(false)}
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4 text-gray-600" />
+            </button>
+          </div>
+          
           <nav className="p-4 space-y-1 overflow-y-auto h-full pb-20">
             {menuItems.map((item) => (
               <Link

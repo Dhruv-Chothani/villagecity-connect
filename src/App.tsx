@@ -71,7 +71,7 @@ const PerformanceOptimizedApp = () => {
             <Sonner />
             <BrowserRouter>
               <Routes>
-                <Route path="/" element={<Index />} />
+                <Route path="/" element={<PageWrapper><Index /></PageWrapper>} />
                 <Route path="/login" element={<PageWrapper><CustomerLogin /></PageWrapper>} />
                 <Route path="/admin-login" element={<PageWrapper><AdminLogin /></PageWrapper>} />
                 <Route path="/register" element={<PageWrapper><Register /></PageWrapper>} />
