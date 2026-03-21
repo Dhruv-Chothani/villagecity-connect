@@ -65,10 +65,8 @@ const Navbar = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-            <div className="flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-lg bg-white shadow-md shadow-primary/20 border border-primary/20">
-              <img src={logo} alt="SVCDA Logo" className="h-8 w-8 sm:h-10 sm:w-10" />
-            </div>
+          <Link to="/" className="flex items-center gap-3 sm:gap-4 flex-shrink-0">
+            <img src={logo} alt="SVCDA Logo" className="h-14 w-14 sm:h-16 sm:w-16 lg:h-20 lg:w-20" />
             <div className="hidden sm:block">
               <p className="font-bold text-base sm:text-lg lg:text-xl leading-tight text-gray-900">SVCDA</p>
               <p className="text-sm sm:text-base text-gray-600">Development Agency</p>
