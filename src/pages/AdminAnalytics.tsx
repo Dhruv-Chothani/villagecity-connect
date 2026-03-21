@@ -106,91 +106,67 @@ const AdminAnalytics = () => {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-xl lg:text-2xl font-bold text-gray-900">Analytics Dashboard</h1>
-          <p className="text-gray-500 mt-1 text-sm">Comprehensive insights and performance metrics</p>
-        </div>
-        <div className="flex gap-2">
-          <select 
-            value={selectedPeriod} 
-            onChange={(e) => setSelectedPeriod(e.target.value)}
-            className="px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-          >
-            {periods.map(period => (
-              <option key={period.value} value={period.value}>{period.label}</option>
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6 lg:p-8">
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8">
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Analytics Dashboard</h1>
+            <p className="text-sm text-gray-600 mt-1">Monitor your platform performance and user engagement</p>
+          </div>
+          
+          {/* Period Selector */}
+          <div className="flex flex-wrap gap-2">
+            {periods.map((period) => (
+              <Button
+                key={period.value}
+                variant={selectedPeriod === period.value ? "default" : "outline"}
+                size="sm"
+                onClick={() => setSelectedPeriod(period.value)}
+                className="text-xs sm:text-sm"
+              >
+                {period.label}
+              </Button>
             ))}
-          </select>
-          <Button variant="outline" size="sm">
-            <Download className="h-4 w-4 mr-2" />
-            Export Report
-          </Button>
+          </div>
         </div>
-      </div>
 
-      {/* Overview Stats */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {overviewStats.map((stat, index) => (
-          <Card key={index}>
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between mb-4">
-                <div className={`p-3 rounded-lg ${stat.color}`}>
-                  <stat.icon className="h-6 w-6" />
-                </div>
-                <div className={`flex items-center gap-1 text-sm ${
-                  stat.trend === 'up' ? 'text-green-600' : 'text-red-600'
-                }`}>
-                  {stat.trend === 'up' ? (
-                    <ArrowUp className="h-4 w-4" />
-                  ) : (
-                    <ArrowDown className="h-4 w-4" />
-                  )}
-                  <span className="font-medium">{stat.change}</span>
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">{stat.value}</h3>
-              <p className="text-gray-500 text-sm mt-1">{stat.title}</p>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {/* Sector Performance */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <BarChart3 className="h-5 w-5" />
-              Sector Performance
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {sectorPerformance.map((sector, index) => (
-                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h4 className="font-medium text-gray-900">{sector.sector}</h4>
-                      <Badge variant={sector.status === 'active' ? 'default' : 'secondary'}>
-                        {sector.status}
-                      </Badge>
-                    </div>
-                    <div className="flex items-center justify-between text-sm text-gray-600">
-                      <span>{sector.users} users</span>
-                      <span>{sector.revenue}</span>
-                    </div>
+        {/* Overview Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {overviewStats.map((stat, index) => (
+            <Card key={index} className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-4 sm:p-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-xs sm:text-sm font-medium text-gray-600">{stat.title}</p>
+                    <p className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mt-1">{stat.value}</p>
+                    {stat.change && (
+                      <div className="flex items-center gap-1 mt-1">
+                        {stat.trend === 'up' ? (
+                          <ArrowUp className="h-3 w-3 sm:h-4 sm:w-4 text-green-600" />
+                        ) : (
+                          <ArrowDown className="h-3 w-3 sm:h-4 sm:w-4 text-red-600" />
+                        )}
+                        <span className={`text-xs sm:text-sm font-medium ${
+                          stat.trend === 'up' ? 'text-green-600' : 'text-red-600'
+                        }`}>
+                          {stat.change}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                  <div className={`ml-4 text-sm font-medium ${
-                    sector.growth.startsWith('+') ? 'text-green-600' : 'text-red-600'
+                  <div className={`p-2 sm:p-3 rounded-lg ${
+                    stat.trend === 'up' ? 'bg-green-100' : 'bg-red-100'
                   }`}>
-                    {sector.growth}
+                    <stat.icon className={`h-4 w-4 sm:h-5 sm:w-5 ${
+                      stat.trend === 'up' ? 'text-green-600' : 'text-red-600'
+                    }`} />
                   </div>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
 
         {/* Top Performers */}
         <Card>
@@ -220,47 +196,47 @@ const AdminAnalytics = () => {
             </div>
           </CardContent>
         </Card>
-      </div>
 
-      {/* Recent Activity */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5" />
-            Recent Activity
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            {recentActivity.map((activity, index) => (
-              <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
-                <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-lg ${
-                    activity.type === 'user' ? 'bg-blue-50' :
-                    activity.type === 'service' ? 'bg-green-50' :
-                    activity.type === 'order' ? 'bg-purple-50' :
-                    activity.type === 'training' ? 'bg-orange-50' :
-                    'bg-red-50'
-                  }`}>
-                    <Users className={`h-4 w-4 ${
-                      activity.type === 'user' ? 'text-blue-600' :
-                      activity.type === 'service' ? 'text-green-600' :
-                      activity.type === 'order' ? 'text-purple-600' :
-                      activity.type === 'training' ? 'text-orange-600' :
-                      'text-red-600'
-                    }`} />
+        {/* Recent Activity */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Activity className="h-5 w-5" />
+              Recent Activity
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {recentActivity.map((activity, index) => (
+                <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                  <div className="flex items-center gap-3">
+                    <div className={`p-2 rounded-lg ${
+                      activity.type === 'user' ? 'bg-blue-50' :
+                      activity.type === 'service' ? 'bg-green-50' :
+                      activity.type === 'order' ? 'bg-purple-50' :
+                      activity.type === 'training' ? 'bg-orange-50' :
+                      'bg-red-50'
+                    }`}>
+                      <Users className={`h-4 w-4 ${
+                        activity.type === 'user' ? 'text-blue-600' :
+                        activity.type === 'service' ? 'text-green-600' :
+                        activity.type === 'order' ? 'text-purple-600' :
+                        activity.type === 'training' ? 'text-orange-600' :
+                        'text-red-600'
+                      }`} />
+                    </div>
+                    <div>
+                      <p className="font-medium text-gray-900">{activity.action}</p>
+                      <p className="text-sm text-gray-600">by {activity.user}</p>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-medium text-gray-900">{activity.action}</p>
-                    <p className="text-sm text-gray-600">by {activity.user}</p>
-                  </div>
+                  <div className="text-sm text-gray-500">{activity.time}</div>
                 </div>
-                <div className="text-sm text-gray-500">{activity.time}</div>
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };

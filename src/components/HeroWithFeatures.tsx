@@ -112,7 +112,7 @@ const HeroWithFeatures: React.FC = () => {
   return (
     <div className="relative">
       {/* Hero Section */}
-      <section className="relative w-full h-[600px] lg:h-[700px] overflow-hidden">
+      <section className="relative w-full h-[500px] sm:h-[550px] md:h-[600px] lg:h-[700px] overflow-hidden">
         {/* Background Images with Carousel */}
         <div className="absolute inset-0">
           {carouselImages.map((image, index) => (
@@ -136,30 +136,30 @@ const HeroWithFeatures: React.FC = () => {
         
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="max-w-3xl">
+          <div className="max-w-3xl w-full">
             {/* Small Tagline */}
-            <div className="text-blue-400 font-semibold text-lg mb-4 uppercase tracking-wide">
+            <div className="text-blue-400 font-semibold text-sm sm:text-base lg:text-lg mb-3 sm:mb-4 uppercase tracking-wide">
               {currentImage.title}
             </div>
             
             {/* Large Heading */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               {currentImage.subtitle}
               <br />
               {currentImage.description}
             </h1>
             
             {/* Short Description */}
-            <p className="text-xl text-gray-200 mb-8 leading-relaxed">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-200 mb-6 sm:mb-8 leading-relaxed">
               {currentImage.content}
             </p>
             
             {/* Action Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <Button
                 onClick={handleGetStarted}
                 size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-lg font-semibold transition-colors text-lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-semibold transition-colors text-sm sm:text-base lg:text-lg w-full sm:w-auto"
               >
                 {currentImage.buttonText}
               </Button>
@@ -168,10 +168,10 @@ const HeroWithFeatures: React.FC = () => {
                 onClick={handleCallNow}
                 variant="outline"
                 size="lg"
-                className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:border-white/50 px-6 py-4 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 backdrop-blur-sm text-lg"
+                className="border-white/30 bg-transparent text-white hover:bg-white/10 hover:border-white/50 px-4 sm:px-6 py-3 sm:py-4 rounded-lg font-semibold transition-all duration-300 flex items-center gap-2 backdrop-blur-sm text-sm sm:text-base lg:text-lg w-full sm:w-auto justify-center"
               >
-                <Phone className="h-5 w-5" />
-                Call Now: {currentImage.phoneNumber}
+                <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
+                <span className="hidden sm:inline">Call Now:</span> {currentImage.phoneNumber}
               </Button>
             </div>
           </div>
@@ -179,24 +179,24 @@ const HeroWithFeatures: React.FC = () => {
       </section>
 
       {/* Overlapping Feature Cards */}
-      <section className="relative -mt-10 lg:-mt-16 z-20">
+      <section className="relative -mt-6 sm:-mt-8 lg:-mt-10 xl:-mt-16 z-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 xl:gap-8">
             {features.map((feature, index) => (
               <Card 
                 key={index}
-                className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer"
+                className="bg-white rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 group cursor-pointer"
               >
-                <CardContent className="p-8 text-center">
+                <CardContent className="p-4 sm:p-6 lg:p-8 text-center">
                   {/* Icon */}
-                  <div className="flex justify-center mb-6">
+                  <div className="flex justify-center mb-3 sm:mb-6">
                     <div className={`${feature.color} transition-transform duration-300 group-hover:scale-110`}>
                       {feature.icon}
                     </div>
                   </div>
                   
                   {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-900">
+                  <h3 className="text-sm sm:text-base lg:text-xl font-bold text-gray-900">
                     {feature.title}
                   </h3>
                 </CardContent>
