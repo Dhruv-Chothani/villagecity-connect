@@ -1,6 +1,5 @@
 import TopStrip from "@/components/ngo/TopStrip";
-import HeroSection from "@/components/ngo/HeroSection";
-import FeatureCards from "@/components/ngo/FeatureCards";
+import HeroWithFeatures from "@/components/HeroWithFeatures";
 import WhyChooseUs from "@/components/ngo/WhyChooseUs";
 import AboutSection from "@/components/ngo/AboutSection";
 import ProgramsSection from "@/components/ngo/ProgramsSection";
@@ -12,8 +11,10 @@ const Index = () => {
   return (
     <div className="min-h-screen">
       <TopStrip />
-      <HeroSection />
-      <FeatureCards />
+      
+      {/* Hero Section with Overlapping Features */}
+      <HeroWithFeatures />
+      
       <WhyChooseUs />
       <AboutSection />
       <ProgramsSection />

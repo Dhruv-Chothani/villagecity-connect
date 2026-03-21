@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from "react";
 import { CheckCircle } from "lucide-react";
 import why1 from "@/assets/ngo-why1.jpg";
 import why2 from "@/assets/ngo-why2.jpg";
@@ -11,6 +12,58 @@ const points = [
 ];
 
 const WhyChooseUs = () => {
+  const [count, setCount] = useState(6);
+  const [isVisible, setIsVisible] = useState(false);
+  const badgeRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting && !isVisible) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.5, // Trigger when 50% of the element is visible
+      }
+    );
+
+    if (badgeRef.current) {
+      observer.observe(badgeRef.current);
+    }
+
+    return () => {
+      if (badgeRef.current) {
+        observer.unobserve(badgeRef.current);
+      }
+    };
+  }, [isVisible]);
+
+  useEffect(() => {
+    if (isVisible) {
+      const startCount = 6;
+      const endCount = 9;
+      const duration = 2000; // 2 seconds
+      const steps = 30; // Number of animation steps
+      const stepDuration = duration / steps;
+      const increment = (endCount - startCount) / steps;
+
+      let currentStep = 0;
+      const timer = setInterval(() => {
+        currentStep++;
+        const newCount = Math.min(startCount + increment * currentStep, endCount);
+        setCount(newCount);
+        
+        if (currentStep >= steps) {
+          clearInterval(timer);
+        }
+      }, stepDuration);
+
+      return () => clearInterval(timer);
+    }
+  }, [isVisible]);
+
   return (
     <section className="bg-secondary/50 py-16 lg:py-20">
       <div className="container">
@@ -41,8 +94,13 @@ const WhyChooseUs = () => {
               <img src={why1} alt="Community Development" className="h-48 w-full rounded-xl object-cover shadow-md sm:h-56 lg:h-64" />
               <img src={why2} alt="Education Programs" className="mt-8 h-48 w-full rounded-xl object-cover shadow-md sm:h-56 lg:h-64" />
             </div>
-            <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 rounded-xl bg-primary px-6 py-3 text-center shadow-lg">
-              <p className="font-display text-2xl font-bold text-primary-foreground">9+</p>
+            <div 
+              ref={badgeRef}
+              className="absolute -bottom-4 left-1/2 -translate-x-1/2 rounded-xl bg-primary px-6 py-3 text-center shadow-lg transform transition-all duration-500"
+            >
+              <p className="font-display text-2xl font-bold text-primary-foreground">
+                {Math.floor(count)}+
+              </p>
               <p className="text-xs text-primary-foreground/80">Service Sectors</p>
             </div>
           </div>
