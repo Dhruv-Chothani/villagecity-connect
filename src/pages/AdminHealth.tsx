@@ -70,9 +70,16 @@ const AdminHealth = () => {
   const startEdit = (item: Doctor | Hospital | Medicine, type: string) => {
     setEditingId(item.id);
     setShowAddForm(true);
-    if (type === "doctor") setForm({ name: item.name, specialty: item.specialty, hospital: item.hospital, fee: item.fee, available: String(item.available), consultType: item.consultType });
-    else if (type === "hospital") setForm({ name: item.name, type: item.type, location: item.location, emergency: String(item.emergency), beds: String(item.beds), phone: item.phone });
-    else if (type === "medicine") setForm({ name: item.name, category: item.category, price: String(item.price), prescription: String(item.prescription), image: item.image });
+    if (type === "doctor") {
+      const d = item as Doctor;
+      setForm({ name: d.name, specialty: d.specialty, hospital: d.hospital, fee: d.fee, available: String(d.available), consultType: d.consultType });
+    } else if (type === "hospital") {
+      const h = item as Hospital;
+      setForm({ name: h.name, type: h.type, location: h.location, emergency: String(h.emergency), beds: String(h.beds), phone: h.phone });
+    } else if (type === "medicine") {
+      const m = item as Medicine;
+      setForm({ name: m.name, category: m.category, price: String(m.price), prescription: String(m.prescription), image: m.image });
+    }
   };
 
   return (

@@ -8,15 +8,15 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1320px",
       },
     },
     extend: {
       fontFamily: {
-        display: ['"Plus Jakarta Sans"', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
+        display: ['"Poppins"', 'sans-serif'],
+        body: ['"Inter"', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -62,17 +62,6 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
-        sector: {
-          education: "hsl(var(--sector-education))",
-          grocery: "hsl(var(--sector-grocery))",
-          business: "hsl(var(--sector-business))",
-          health: "hsl(var(--sector-health))",
-          electronics: "hsl(var(--sector-electronics))",
-          agriculture: "hsl(var(--sector-agriculture))",
-          services: "hsl(var(--sector-services))",
-          training: "hsl(var(--sector-training))",
-          employment: "hsl(var(--sector-employment))",
-        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -92,11 +81,16 @@ export default {
           from: { opacity: "0", transform: "translateY(10px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },
+        "count-up": {
+          from: { opacity: "0", transform: "scale(0.5)" },
+          to: { opacity: "1", transform: "scale(1)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "fade-in": "fade-in 0.4s ease-out forwards",
+        "count-up": "count-up 0.5s ease-out forwards",
       },
     },
   },

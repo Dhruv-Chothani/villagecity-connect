@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,47 +6,35 @@
 
 @layer base {
   :root {
-    --background: 40 30% 97%;
-    --foreground: 160 30% 10%;
+    --background: 0 0% 100%;
+    --foreground: 190 40% 10%;
     --card: 0 0% 100%;
-    --card-foreground: 160 30% 10%;
+    --card-foreground: 190 40% 10%;
     --popover: 0 0% 100%;
-    --popover-foreground: 160 30% 10%;
-    --primary: 152 70% 30%; /* Dark Green from logo - more vibrant */
+    --popover-foreground: 190 40% 10%;
+    --primary: 182 70% 22%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 75% 50%; /* Dark Blue from logo - more vibrant */
-    --secondary-foreground: 0 0% 100%;
-    --muted: 40 20% 93%;
-    --muted-foreground: 160 10% 45%;
-    --accent: 0 85% 60%; /* Red from logo - more vibrant */
+    --secondary: 182 50% 95%;
+    --secondary-foreground: 182 70% 22%;
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 47%;
+    --accent: 25 95% 53%;
     --accent-foreground: 0 0% 100%;
-    --destructive: 0 85% 60%; /* Red for destructive actions */
+    --destructive: 0 85% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 40 20% 88%;
-    --input: 40 20% 88%;
-    --ring: 152 70% 30%;
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 182 70% 22%;
     --radius: 0.75rem;
 
-    --sector-education: 50 95% 60%; /* Yellow/Gold from logo - more vibrant */
-    --sector-grocery: 152 70% 30%; /* Dark Green from logo */
-    --sector-business: 210 75% 50%; /* Dark Blue from logo */
-    --sector-health: 0 85% 60%; /* Red from logo */
-    --sector-electronics: 210 75% 50%; /* Blue from logo */
-    --sector-agriculture: 152 70% 30%; /* Green from logo */
-    --sector-services: 0 85% 60%; /* Red from logo */
-    --sector-training: 50 95% 60%; /* Yellow from logo */
-    --sector-employment: 30 80% 55%; /* Orange/Brown from logo */
-
-    --sidebar-background: 152 70% 15%; /* Dark Green background */
+    --sidebar-background: 182 70% 12%;
     --sidebar-foreground: 0 0% 95%;
-    --sidebar-primary: 152 70% 35%;
+    --sidebar-primary: 182 70% 35%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 152 25% 22%;
+    --sidebar-accent: 182 25% 22%;
     --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 152 20% 25%;
-    --sidebar-ring: 152 70% 30%;
-
-    --hero-glow: 152 70% 25%;
+    --sidebar-border: 182 20% 25%;
+    --sidebar-ring: 182 70% 22%;
   }
 }
 
@@ -55,7 +43,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-body;
+    @apply bg-background text-foreground font-body antialiased;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-display;
@@ -63,25 +51,24 @@
 }
 
 @layer utilities {
-  .sector-card {
-    @apply rounded-2xl border bg-card p-6 shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/20;
-  }
-
   .glass {
-    @apply bg-card/70 backdrop-blur-xl border border-border/50;
-  }
-
-  .gradient-hero {
-    background: linear-gradient(135deg, hsl(152 70% 25%), hsl(152 70% 35%), hsl(210 75% 50%));
-  }
-
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, hsl(var(--secondary)), hsl(210 75% 60%));
+    @apply bg-card/80 backdrop-blur-xl border border-border/50;
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.3s ease-out;
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+  }
+
+  .animate-slide-in-left {
+    animation: slideInLeft 0.6s ease-out forwards;
+  }
+
+  .hover-lift {
+    @apply transition-all duration-300 hover:-translate-y-2 hover:shadow-xl;
   }
 }
 
@@ -89,3 +76,18 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: hsl(var(--muted)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--primary)); border-radius: 4px; }
